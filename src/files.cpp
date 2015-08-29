@@ -1,13 +1,14 @@
 #include <files.h>
 
 #include <stack>
+#include <regex>
 #include <boost/filesystem.hpp>
 
 
-std::vector<std::string> zubr::files::find_all_images(const std::string& directory, const std::string& filter)
+std::vector<std::string> zubr::files::find_all_files(const std::string& directory, const std::string& filter)
 {
 	using namespace boost::filesystem;
-	std::vector<std::string> images;
+	std::vector<std::string> files;
 	std::stack<path> paths;
 
 	paths.push(directory);
@@ -22,10 +23,10 @@ std::vector<std::string> zubr::files::find_all_images(const std::string& directo
 				}
 			}
 			else if (is_regular_file(p)) {
-				images.push_back(p.native());
+				files.push_back(p.native());
 			}
 		}
 	}
 
-	return images;	
+	return files;	
 }

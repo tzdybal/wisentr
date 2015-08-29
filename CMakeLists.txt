@@ -12,19 +12,24 @@ externalproject_add(flickcurl_project
 )
 
 add_library(flickcurl STATIC IMPORTED)
+add_dependencies(flickcurl flickcurl_project)
 set_target_properties(flickcurl PROPERTIES IMPORTED_LOCATION "${PROJECT_BINARY_DIR}/flickcurl/lib/libflickcurl.a")
 
 include_directories("${PROJECT_SOURCE_DIR}/src" "${PROJECT_BINARY_DIR}/flickcurl/include" "${LIBXML2_INCLUDE_DIR}")
 link_directories("${LIBXML2_LIBRARIES}")
 
+add_executable(zubr src/main.cpp
+	src/ui.h src/ui.cpp
+)
+set_property(TARGET zubr PROPERTY CXX_STANDARD 11)
 
+add_library(files
+	src/files.h src/files.cpp
+)
+set_property(TARGET files PROPERTY CXX_STANDARD 11)
 
 add_executable(example src/example.c)
 target_link_libraries(example flickcurl curl xml2)
-
-add_library(files src/files.h src/files.cpp)
-target_link_libraries(files boost_filesystem)
-set_property(TARGET files PROPERTY CXX_STANDARD 11)
 
 enable_testing()
 add_subdirectory(test)
