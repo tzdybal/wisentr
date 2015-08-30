@@ -25,10 +25,10 @@ std::string to_string(level lvl)
 			str = "DEBUG";
 			break;
 		case level::INFO:
-			str = "INFO";
+			str = "INFO ";
 			break;
 		case level::WARNING:
-			str = "WARN";
+			str = "WARN ";
 			break;
 		case level::ERROR:
 			str = "ERROR";
@@ -47,7 +47,7 @@ public:
 	void operator()(level lvl, params... p)
 	{
 		if (lvl >= log_level) {
-			std::cout << "[" << to_string(lvl) << "]";
+			std::cout << "[" << to_string(lvl) << "] ";
 			do_log(p...);
 			std::cout << std::endl;
 		}	

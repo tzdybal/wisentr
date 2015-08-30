@@ -21,6 +21,7 @@ link_directories("${LIBXML2_LIBRARIES}")
 add_executable(zubr src/main.cpp
 	src/ui.h src/ui.cpp
 )
+target_link_libraries(zubr files boost_system boost_filesystem)
 set_property(TARGET zubr PROPERTY CXX_STANDARD 11)
 
 add_library(files
