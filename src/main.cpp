@@ -6,12 +6,14 @@
 #include <ui.h>
 #include <log.h>
 #include <files.h>
+#include <flickr.h>
 
 int main(int argc, char** argv)
 {
 	using namespace zubr::log;
 	using namespace zubr::ui;
 	using namespace zubr::files;
+	using namespace zubr::flickr;
 
 	std::string directory = ".";
 
@@ -34,7 +36,13 @@ int main(int argc, char** argv)
 	}), files.end());
 
 	log(level::INFO, "Found ", files.size(), " files");
-	for (const auto& f : files) log(level::DEBUG, "  ", f);
+
+	flickr f;
+
+	for (auto file : files) {
+		log(level::INFO, "Uploading ", file);
+		f.upload(file);
+	}
 
 	log(level::DEBUG, "Exiting application");
 }
